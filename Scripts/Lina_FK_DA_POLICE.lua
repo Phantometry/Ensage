@@ -37,7 +37,6 @@
 require("libs.Utils")
 require("libs.ScriptConfig")
 require("libs.TargetFind")
-require("libs.Animations")
  
 config = ScriptConfig.new()
 config:SetParameter("ComboKey", "D", config.TYPE_HOTKEY)
