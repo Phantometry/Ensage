@@ -37,6 +37,7 @@
 require("libs.Utils")
 require("libs.ScriptConfig")
 require("libs.TargetFind")
+require("libs.Animations")
  
 config = ScriptConfig.new()
 config:SetParameter("ComboKey", "D", config.TYPE_HOTKEY)
@@ -126,15 +127,17 @@ function Main(tick)
                         end
                 end
                 Sleep(100,"Drop")
-        elseif not ShowText then
-            local Enemies = entityList:GetEntities({type=LuaEntity.TYPE_HERO,illusion=false,team=me:GetEnemyTeam()})
-                for i,v in ipairs(Enemies) do
-                    if Text[v.handle].visible == true then
-                            Text[v.handle].visible = false
-                        end
-                end
-        end
-       
+ elseif not ShowText then 
+     local Enemies = entityList:GetEntities({type=LuaEntity.TYPE_HERO,illusion=false,team=me:GetEnemyTeam()})
+  for i,v in ipairs(Enemies) do
+   if Text[v.handle] then
+    if Text[v.handle].visible == true then
+       Text[v.handle].visible = false
+    end
+   end
+  end
+ end
+	
     target = targetFind:GetClosestToMouse(100)
        
         if Order ~= 0 and not active then
@@ -215,8 +218,7 @@ function Main(tick)
                 statusText3.visible = false
                 statusText4.visible = false
                 ignore = true
-        end
-       
+        end  
 end
  
 function DamageCalculation(Enemy)
