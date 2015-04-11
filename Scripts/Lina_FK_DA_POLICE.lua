@@ -55,7 +55,7 @@ local Order = 0
 local inCombo = false
 local expired = false
 
-local x,y = 5, 55  -- x = x axis || y = y axis , this only took me 4 months to figure out.
+local x,y = 5, 55
 local monitor = client.screenSize.x/1600
 local F14 = drawMgr:CreateFont("F14","Segoe UI",14,500) 
 local F15 = drawMgr:CreateFont("F15","Segoe UI",18,580)
