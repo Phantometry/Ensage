@@ -169,7 +169,7 @@ function Main(tick)
                 if EulModif and EulModif.remainingTime < 0.9+ (client.latency/1000)+delay and EulModif.remainingTime > (0.5 + (client.latency/1000)) and Order == 1  then
                         me:CastAbility(W,target.position)
                         Order = 2
-                        Sleep(450+client.latency,"Cast")
+                        Sleep(450+client.latency+delay*1000,"Cast")
                         return
                 elseif not Ethereal and EulModif and Order == 2 and SleepCheck("Cast") then
                     me:Stop()
