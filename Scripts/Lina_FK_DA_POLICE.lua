@@ -1,4 +1,4 @@
---<<Lina FK DA POLICE by Phantometry and Nova-chan V1>>-
+--<<Lina FK DA POLICE by Phantometry and Nova-chan V1.1>>-
 --[[
  
     Description:-
@@ -24,7 +24,10 @@
                             - Added a hotkey to toggle the text.
                                
                         - Various changes to improve FPS
-                       
+                        
+	   ----- Update -----
+	   V1.1 - Change to cancel the backswing animation of the Q to allow a faster combo, and also a small fix that should fix the problems people were having.
+			
             Credits:-
                      Nova-chan - Without him I would've never been able to make any of this. He always helps me whenever I need it.
                                                 He has taught me everything I know and also given me permission to use any of his code in my scripts.
@@ -166,14 +169,14 @@ function Main(tick)
                     return
                 end                    
                
-                if EulModif and EulModif.remainingTime < 0.9+ (client.latency/1000)+delay and EulModif.remainingTime > (0.5 + (client.latency/1000)) and Order == 1  then
+                if EulModif and EulModif.remainingTime < (0.95+(client.latency/1000)+delay) and Order == 1  then
                         me:CastAbility(W,target.position)
                         Order = 2
-                        Sleep(450+client.latency+delay*1000,"Cast")
-                        return
+                        Sleep(500+client.latency+delay*1000,"Cast")
                 elseif not Ethereal and EulModif and Order == 2 and SleepCheck("Cast") then
                     me:Stop()
                     me:CastAbility(Q,target.position)
+					Sleep(500+client.latency,"Cast2")
                         Order = 3
                 elseif not Eul:CanBeCasted() and not EulModif then
                         if Ethereal and Ethereal:CanBeCasted() and not EtherealModif and Order == 2 then
@@ -186,11 +189,14 @@ function Main(tick)
                     end
                                 me:CastAbility(R,target,true)
                                 Order = 4
-                        elseif not Ethereal and Order == 3 then
+                        elseif not Ethereal and Order == 3 and SleepCheck("Cast2") then
+						        me:Stop()
                                 if dagon and dagon:CanBeCasted() then
-                                    me:CastAbility(dagon,target,true)
+                                    me:CastAbility(dagon,target)
+									me:CastAbility(R,target,true)
+								else
+									me:CastAbility(R,target)
                     end
-                                me:CastAbility(R,target,true)
                                 Order = 4
                                 Sleep(3000, "Combo")
             end        
@@ -341,3 +347,4 @@ end
  
 script:RegisterEvent(EVENT_CLOSE,onClose)
 script:RegisterEvent(EVENT_TICK,onLoad)
+
