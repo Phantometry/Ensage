@@ -1,4 +1,4 @@
---<<Lina FK DA POLICE by Phantometry and Nova-chan V1.1>>-
+--<<Lina FK DA POLICE by Phantometry and Nova-chan V1.2>>-
 --[[
  
     Description:-
@@ -25,8 +25,11 @@
                                
                         - Various changes to improve FPS
                         
-	   ----- Update -----
+	   ----- Update -----   
 	   V1.1 - Change to cancel the backswing animation of the Q to allow a faster combo, and also a small fix that should fix the problems people were having.
+	   
+	   ----- Update -----
+	   V1.2 - An UltimateToggle option was added.
 			
             Credits:-
                      Nova-chan - Without him I would've never been able to make any of this. He always helps me whenever I need it.
@@ -45,9 +48,12 @@ require("libs.Animations")
 config = ScriptConfig.new()
 config:SetParameter("ComboKey", "D", config.TYPE_HOTKEY)
 config:SetParameter("TextToggle", "P", config.TYPE_HOTKEY)
+config:SetParameter("UltimateToggle", "K", config.TYPE_HOTKEY)
 config:Load()
  
 local comboKey = config.ComboKey
+local UltimateToggle = config.UltimateToggle
+local UltimateActive = true
 local TextToggle = config.TextToggle
 local ShowText = true
 local registered = false
@@ -66,7 +72,8 @@ local F15 = drawMgr:CreateFont("F15","Segoe UI",18,580)
 local statusText = drawMgr:CreateText(x*monitor,y*monitor,0xE35B00FF,"Lina - FK DA POLICE!",F15) statusText.visible = false
 local statusText2 = drawMgr:CreateText(x*monitor,(y+20)*monitor,0xF7E559FF,"For this script you require Euls, Combo Key is "..string.char(comboKey).." - HOLD",F14) statusText2.visible = false
 local statusText3 = drawMgr:CreateText(x*monitor,(y+35)*monitor,0xF7E559FF,"To toggle the text above enemies, press "..string.char(TextToggle),F14) statusText3.visible = false
-local statusText4 = drawMgr:CreateText(x*monitor,(y+50)*monitor,-1,"",F14) statusText4.visible = false
+local statusText4 = drawMgr:CreateText(x*monitor,(y+65)*monitor,-1,"",F14) statusText4.visible = false
+local statusText5 = drawMgr:CreateText(x*monitor,(y+50)*monitor,0xF7E559FF,"To toggle your ultimate press "..string.char(UltimateToggle),F14) statusText5.visible = false
  
 function Key(msg,code)
         if client.chat or client.console or client.loading then return end
@@ -76,6 +83,9 @@ function Key(msg,code)
         if IsKeyDown(TextToggle) then
             ShowText = not ShowText
         end
+		if IsKeyDown(UltimateToggle) then
+		    UltimateActive = not UltimateActive
+		end
 end
  
 function Main(tick)
@@ -187,15 +197,21 @@ function Main(tick)
                                 if dagon and dagon:CanBeCasted() then
                                     me:CastAbility(dagon,target,true)
                     end
-                                me:CastAbility(R,target,true)
+                                if UltimateActive == true then 
+                                    me:CastAbility(R,target,true)
+								end
                                 Order = 4
                         elseif not Ethereal and Order == 3 and SleepCheck("Cast2") then
 						        me:Stop()
                                 if dagon and dagon:CanBeCasted() then
                                     me:CastAbility(dagon,target)
-									me:CastAbility(R,target,true)
+									if UltimateActive == true then 
+									    me:CastAbility(R,target,true)
+									end
 								else
-									me:CastAbility(R,target)
+                                    if UltimateActive == true then 
+									    me:CastAbility(R,target)
+									end
                     end
                                 Order = 4
                                 Sleep(3000, "Combo")
@@ -213,6 +229,7 @@ function Main(tick)
                 statusText2.visible = true
                 statusText3.visible = true
                 statusText4.visible = true
+				statusText5.visible = true
                 timeremain = math.ceil(30 - client.gameTime)
             statusText4.text = "These messages will disappear in " .. (timeremain) .. " seconds"
                 if timeremain < 1 then
@@ -223,6 +240,7 @@ function Main(tick)
                 statusText2.visible = false    
                 statusText3.visible = false
                 statusText4.visible = false
+				statusText5.visible = false
                 ignore = true
         end  
 end
@@ -269,21 +287,21 @@ function DamageCalculation(Enemy)
                     Dmg = DmgQ + Dmg
                 end
     end
-       
-        if R and R:CanBeCasted() and R.level > 0 and not Aghanims then
-        if EReady then
-                    DmgR = RDmg[R.level]
-                    DmgR = DmgR*1.4
-                        DmgR = Enemy:DamageTaken(DmgR,DAMAGE_MAGC,me)
-                        Dmg = DmgR + Dmg
-                else
-                DmgR = Enemy:DamageTaken(RDmg[R.level],DAMAGE_MAGC,me)
-                    Dmg = DmgR + Dmg
-                end
-        elseif R and R:CanBeCasted() and R.level > 0 and Aghanims then
-            Dmg = Dmg + Enemy:DamageTaken(RDmg[R.level],DAMAGE_PURE,me)
-        end
-       
+        if UltimateActive == true then 
+			if R and R:CanBeCasted() and R.level > 0 and not Aghanims then
+			if EReady then
+						DmgR = RDmg[R.level]
+						DmgR = DmgR*1.4
+							DmgR = Enemy:DamageTaken(DmgR,DAMAGE_MAGC,me)
+							Dmg = DmgR + Dmg
+					else
+					DmgR = Enemy:DamageTaken(RDmg[R.level],DAMAGE_MAGC,me)
+						Dmg = DmgR + Dmg
+					end
+			elseif R and R:CanBeCasted() and R.level > 0 and Aghanims then
+				Dmg = Dmg + Enemy:DamageTaken(RDmg[R.level],DAMAGE_PURE,me)
+			end
+        end       
         if dagon and dagon:CanBeCasted() then
         if EReady then
                     DmgD = dagon:GetSpecialData("damage")
