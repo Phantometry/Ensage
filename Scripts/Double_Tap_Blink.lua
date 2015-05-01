@@ -1,4 +1,4 @@
---<<Double-Tap Blink by Phantometry and Nova-chan v 0.2>>--
+--<<Double-Tap Blink by Phantometry and Nova-chan v 0.3>>--
 
 require("libs.Utils")
 require("libs.ScriptConfig")
@@ -18,7 +18,7 @@ function Load()
     local me = entityList:GetMyHero()
 	
 	if PlayingGame() then
-	    if (me.classId ~= 481) and (me.classId ~= 412) then 
+	    if (me.classId ~= CDOTA_Unit_Hero_AntiMage) and (me.classId ~= CDOTA_Unit_Hero_QueenOfPain) then 
 			script:Disable()
 		else
 		    registered = true 
@@ -63,7 +63,7 @@ function Tick(tick)
 	
     if IsKeyDown(ComboKey) and not pressedonce then 
       pressedonce = true
-	  Sleep(1000,"Cancel")
+	  Sleep(500,"Cancel")
 	  Sleep(50)
 	end
 	
