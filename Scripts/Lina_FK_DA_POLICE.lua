@@ -1,4 +1,4 @@
---<<Lina FK DA POLICE by Phantometry and Nova-chan V1.2>>-
+--<<Lina FK DA POLICE by Phantometry and Nova-chan V1.3>>-
 --[[
  
     Description:-
@@ -30,6 +30,9 @@
 	   
 	   ----- Update -----
 	   V1.2 - An UltimateToggle option was added.
+	   
+	   ----- Update -----
+	   V1.3 - Fixed for patch 6.84.
 			
             Credits:-
                      Nova-chan - Without him I would've never been able to make any of this. He always helps me whenever I need it.
@@ -121,7 +124,7 @@ function Main(tick)
                                                 elseif active and not Eul then
                                                         Text[v.handle].text = "You need Euls!"
                                                         Text[v.handle].color = 0xE69F2EFF
-                                                elseif active and not Eul:CanBeCasted() and not inCombo then
+                                                elseif active and Eul.cd ~= 0 and not inCombo then
                                                         Text[v.handle].text = "Euls is on cooldown!"
                                                         Text[v.handle].color = 0xE69F2EFF
                                                 elseif active then
@@ -169,9 +172,14 @@ function Main(tick)
                    delay = (distance-625)/me.movespeed
                 else
                    delay = 0
-        end                
-       
-                if Eul and Eul:CanBeCasted() and Order == 0 then
+        end    
+		
+				if Eul and Eul.cd > 0 and SleepCheck("Time") then
+				   TimeRemaining = 2500+GetTick()
+				   Sleep(2500,"Time")
+			    end
+   
+                if Eul and Eul.cd == 0 and Order == 0 then
                         me:CastAbility(Eul,target)             
                         Order = 1
                         inCombo = true
@@ -179,7 +187,7 @@ function Main(tick)
                     return
                 end                    
                
-                if EulModif and EulModif.remainingTime < (0.95+(client.latency/1000)+delay) and Order == 1  then
+                if EulModif and ((TimeRemaining - GetTick())/1000) < (0.95+(client.latency/1000)+delay) and Order == 1  then
                         me:CastAbility(W,target.position)
                         Order = 2
                         Sleep(500+client.latency+delay*1000,"Cast")
@@ -188,13 +196,13 @@ function Main(tick)
                     me:CastAbility(Q,target.position)
 					Sleep(500+client.latency,"Cast2")
                         Order = 3
-                elseif not Eul:CanBeCasted() and not EulModif then
-                        if Ethereal and Ethereal:CanBeCasted() and not EtherealModif and Order == 2 then
+                elseif Eul.cd ~= 0 and not EulModif then
+                        if Ethereal and Ethereal.cd == 0 and not EtherealModif and Order == 2 then
                             me:CastAbility(Ethereal,target)
                                 Order = 3
                         elseif EtherealModif  and Order == 3 then
                             me:CastAbility(Q,target,true)
-                                if dagon and dagon:CanBeCasted() then
+                                if dagon and dagon.cd == 0 then
                                     me:CastAbility(dagon,target,true)
                     end
                                 if UltimateActive == true then 
@@ -203,7 +211,7 @@ function Main(tick)
                                 Order = 4
                         elseif not Ethereal and Order == 3 and SleepCheck("Cast2") then
 						        me:Stop()
-                                if dagon and dagon:CanBeCasted() then
+                                if dagon and dagon.cd == 0 then
                                     me:CastAbility(dagon,target)
 									if UltimateActive == true then 
 									    me:CastAbility(R,target,true)
@@ -263,20 +271,20 @@ function DamageCalculation(Enemy)
         local Dmg = 0
         local EReady = false
        
-        if Eul and Eul:CanBeCasted() then
+        if Eul and Eul.cd == 0 then
             Dmg = Dmg + Enemy:DamageTaken(50,DAMAGE_MAGC,me)
         end
        
-        if W and W:CanBeCasted() and W.level > 0 then
+        if W and W.cd == 0 and W.level > 0 then
             Dmg = Dmg + Enemy:DamageTaken(WDmg[W.level],DAMAGE_MAGC,me)
     end
        
-        if Ethereal and Ethereal:CanBeCasted() then
+        if Ethereal and Ethereal.cd == 0 then
             EReady = true
             Dmg = Dmg + Enemy:DamageTaken((((2*me.intellectTotal) + 75)*1.4),DAMAGE_MAGC,me)
         end
        
-        if Q and Q:CanBeCasted() and Q.level > 0 then
+        if Q and Q.cd == 0 and Q.level > 0 then
         if EReady then
                     DmgQ = QDmg[Q.level]
                     DmgQ = DmgQ*1.4
@@ -288,7 +296,7 @@ function DamageCalculation(Enemy)
                 end
     end
         if UltimateActive == true then 
-			if R and R:CanBeCasted() and R.level > 0 and not Aghanims then
+			if R and R.cd == 0 and R.level > 0 and not Aghanims then
 			if EReady then
 						DmgR = RDmg[R.level]
 						DmgR = DmgR*1.4
@@ -298,11 +306,11 @@ function DamageCalculation(Enemy)
 					DmgR = Enemy:DamageTaken(RDmg[R.level],DAMAGE_MAGC,me)
 						Dmg = DmgR + Dmg
 					end
-			elseif R and R:CanBeCasted() and R.level > 0 and Aghanims then
+			elseif R and R.cd == 0 and R.level > 0 and Aghanims then
 				Dmg = Dmg + Enemy:DamageTaken(RDmg[R.level],DAMAGE_PURE,me)
 			end
         end       
-        if dagon and dagon:CanBeCasted() then
+        if dagon and dagon.cd == 0 then
         if EReady then
                     DmgD = dagon:GetSpecialData("damage")
                     DmgD = DmgD*1.4
@@ -315,6 +323,10 @@ function DamageCalculation(Enemy)
         end
        
         return Dmg
+end
+
+function LuaEntityAbility:CanBeCast()
+  return self.cd == 0 and entityList:GetMyHero().mana >= self.manacost
 end
        
 function GetHealthRegen(v)
