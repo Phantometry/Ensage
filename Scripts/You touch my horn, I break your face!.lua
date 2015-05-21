@@ -33,7 +33,7 @@
 require("libs.Utils")
 require("libs.ScriptConfig")
 require("libs.SkillShot")
-require("libs.Animations")
+require("libs.Animations2")
 require("libs.TargetFind")
 require("libs.SmartCast")
 
