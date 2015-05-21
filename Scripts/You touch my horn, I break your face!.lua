@@ -184,7 +184,10 @@ function Main(tick)
         automatic and center and me:GetDistance2D(center) < 1200 then
         me:CastAbility(dagger,center)
         automatic = false
-      else return
+      else
+       step = 0
+       penis = false
+      return
       end
       me:CastAbility(rp)
       step = 1
