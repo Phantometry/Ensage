@@ -276,12 +276,6 @@ function onClose()
     script:UnregisterEvent(Key)
     script:RegisterEvent(EVENT_TICK,onLoad)
     registered = false
-    statusText.visible = false
-    statusText2.visible = false
-    statusText3.visible = false
-    statusText4.visible = false
-    statusText5.visible = false
-    statusText6.visible = false
   end
 end
 
