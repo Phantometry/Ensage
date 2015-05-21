@@ -1,4 +1,4 @@
---<<You touch my horn, I break your face! A script by Phantometry V0.1>>
+--<<You touch my horn, I break your face! A script by Phantometry V1>>
 --[[ 
       Description:-
            An ultimate combos for Magnus.
@@ -9,8 +9,14 @@
                       - Blink Dagger
 
       Changelog:- 
-         -----Beta phase--
+         -----Beta phase-----
             V0.1 Release was made, if there any bugs or suggestions, please notify me of them.
+            
+         -----Beta phase ended-----
+            V1 Some small fixes were made. Script is now ready to be used.
+            
+            
+            
             
             
                                                                                        ,'   `---.___.---'  `.
@@ -184,10 +190,10 @@ function Main(tick)
         automatic and center and me:GetDistance2D(center) < 1200 then
         me:CastAbility(dagger,center)
         automatic = false
-      else
-       step = 0
-       penis = false
-      return
+      else 
+      step = 0
+      penis = false
+       return
       end
       me:CastAbility(rp)
       step = 1
