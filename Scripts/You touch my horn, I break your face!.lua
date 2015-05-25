@@ -1,5 +1,5 @@
 --<<You touch my horn, I break your face! A script by Phantometry V1>>
---[[ 
+--[[
       Description:-
            An ultimate combos for Magnus.
                Includes usage of items:
@@ -14,6 +14,9 @@
             
          -----Beta phase ended-----
             V1 Some small fixes were made. Script is now ready to be used.
+         -----Release of version 1.1-----
+            V1.1 A complete rework of AutoSkewer. Now it stops if opponent will dodge you. PLUS, the skewer is much more accurate right now.
+                     Also there were some changes with backswing animations. The refresher combo is x2 faster than it was before. 
             
             
             
@@ -35,7 +38,7 @@
                                                                            `--'           /____\             /____\
                                                    
   P.S  Don't fuck with rhyno ]]
-     
+
 require("libs.Utils")
 require("libs.ScriptConfig")
 require("libs.SkillShot")
@@ -100,7 +103,7 @@ function Key(msg,code)
   if client.chat or client.console or client.loading then return end
 
   if code == autoskewer then
-    active = (msg == KEY_DOWN)
+    active = true
   end
 
   if IsKeyDown(string.byte("S")) then
@@ -144,17 +147,29 @@ function Main(tick)
   target = targetFind:GetClosestToMouse(100)
   if target and active then
     if dagger and skewer:CanBeCasted() then
-      local xyz = SkillShot.PredictedXYZ(target,me:GetTurnTime(target)*1000+400)
-      if me:GetDistance2D(xyz) < 1200 then
-        if me.team == 2 then
-          me:CastAbility(dagger,xyz)
+      local xyz = SkillShot.PredictedXYZ(target,me:GetTurnTime(target)*1000+630)
+      if me:GetDistance2D(xyz) < 1125 then
+        if me.team == 2 and SleepCheck("penischeck") then
+          me:CastAbility(dagger,((xyz - me.position) * (75 + me:GetDistance2D(xyz)) / me:GetDistance2D(xyz) + me.position))
           me:CastAbility(skewer,Vector(-7149,-6696,383),true)
-          Sleep(8000)
-        else
-          me:CastAbility(dagger,xyz)
+          Sleep(8000, "penischeck")
+          Sleep(me:GetTurnTime(Vector(-7149,-6696,-383))*1000+300, "something")
+        elseif SleepCheck("penischeck") then
+          me:CastAbility(dagger,((xyz - me.position) * (75 + me:GetDistance2D(xyz)) / me:GetDistance2D(xyz) + me.position))
           me:CastAbility(skewer,Vector(7149,6696,383),true)
-          Sleep(8000)
+          Sleep(8000, "penischeck")
+          Sleep(me:GetTurnTime(Vector(7149,6696,383))*1000+300, "something")
         end
+      end
+    end
+    if SleepCheck("something") and dagger.cd > 0 and skewer:CanBeCasted() and not SleepCheck("penischeck") and GetDistance2D(me,target) > 125 then
+      angle = me:FindRelativeAngle(target)
+      if angle > 1.2 or angle < -1.3 then
+        me:Stop()
+        active = false
+        Sleep(12000, "something")
+      else
+        active = false
       end
     end
   end
@@ -190,10 +205,10 @@ function Main(tick)
         automatic and center and me:GetDistance2D(center) < 1200 then
         me:CastAbility(dagger,center)
         automatic = false
-      else 
-      step = 0
-      penis = false
-       return
+      else
+        step = 0
+        penis = false
+        return
       end
       me:CastAbility(rp)
       step = 1
@@ -223,13 +238,14 @@ function Main(tick)
       Sleep(1000)
     elseif refresher and step == 3 and SleepCheck("refreshercheck") then
       me:CastAbility(refresher)
-      me:CastAbility(rp)
-      me:CastAbility(shoqwave,SkillShot.InFront(me,500), true)
       step = 4
-      Sleep(800,"anothercheck")
-    elseif step == 4 and SleepCheck("anothercheck") then
+      Sleep(200,"anothercheck")
+    elseif step == 4 and SleepCheck("anothercheck") and me:CanCast() then
       me:CastAbility(rp)
-      me:CastAbility(shoqwave,SkillShot.InFront(me,500), true)
+      step = 5
+      Sleep(400,"blablabla")
+    elseif step == 5 and SleepCheck("blablabla") and me:CanCast() then
+      me:CastAbility(shoqwave,SkillShot.InFront(me,500), false)
       step = 0
       penis = false
       Sleep(1000)
