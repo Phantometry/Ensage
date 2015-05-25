@@ -1,4 +1,4 @@
---<<You touch my horn, I break your face! A script by Phantometry V1>>
+--<<You touch my horn, I break your face! A script by Phantometry V1.1>>
 --[[
       Description:-
            An ultimate combos for Magnus.
