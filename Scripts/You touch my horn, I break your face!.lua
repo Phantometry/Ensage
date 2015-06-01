@@ -1,13 +1,44 @@
 --<<You touch my horn, I break your face! A script by Phantometry V1.1>>
---[[
-      Description:-
-           An ultimate combos for Magnus.
-               Includes usage of items:
-                   - Black King Bar
-                   - Refresher's Orb
-                   Required items:
-                      - Blink Dagger
-
+--[[    
+                                                               ▄                                                            
+                                                            ╓█▀                                                             
+  /\/\   __ _  __ _ _ __  _   _ ___                       ▄▓█▀                                                              
+ /    \ / _` |/ _` | '_ \| | | / __|                    ▄▀ █`                                                               
+/ /\/\ \ (_| | (_| | | | | |_| \__ \                  ,▓  █▌                                                                
+\/    \/\__,_|\__, |_| |_|\__,_|___/                 ▄ ╒ █▌                                                                 
+--------------|___/-----------------                ╬   ▐█                                                                  
+                                                   ▄  ▌ █                                   ¢                               
+   |_FEATURES_|                                   ▐  ▄ ▐▌                                 ╔▓                                
+      - Auto ShockWave                            ▌ ┌▌ █                                ,▓╨                                 
+      - Auto Skewer to base                      ▐  █  █                               ▄▀╨  f                               
+      - Auto RP/Smart RP                         █ █   ▌                      ,▄▓▓Ñ╬▓█▀ ╩  Γ                                
+        - With or without Skewer                .▌ █   ▌                    =███@   █▌ ▀  .▄▄╗,                             
+                                                ▐ ▐    ▐                  ,▄▓,     ▄█▌    ▐▓▀▀▀▀▀▓▓▄,                       
+   |_DESCRIPTION_|                              █ ▐    ╙╕                ,█▀`     ▐██▌,▐▄▄█▓░      ╙▀▓▄,                    
+    AutoShockWave - Casts ShockWave on the     ▐█▄▄▌    ]                █▄▄█▓         "╙` ▀░         ╜▀▓▄                  
+                    enemy closest to your        ▀ ╘     ▓              ▐▀▀▀▄▒     ╓▄Å@@╖               ╙▓▓▄                
+                    mouseposition.                ▌ ╘     ▓                 ╘█`,▄▓▀"    "▀╖               ▒▓▓▄              
+                                                   ▌       ▀▄               ┌▒▄▀"         █▌╖              ╙▀▒▌             
+    AutoSkewer - Casts Blink then Skewer on the    ╘▄   5   ╙▌╦,            █▀   ,P▓"*    █▓▒▓~              ▒▓█,           
+                 enemy closest to mouseposition     ▐,   ▀▄╓▀   ╙▄              ¿  ╛     ▐███▓▓Ç              ╙▓█▄          
+                 towards your base.                  ▀ $  ▐▀      ▀        ╢  ,▓╦",* -  ╔ ▌  ▀█▓Ç              ╙▓█▄         
+                                                      █ █▄▀       ▄▄,     ▄▄m' `▀▀ⁿ"   ▄╢╢█,   █▓,              ╙▓█▄        
+    AutoRP - Casts Blink then RP on the target that   █░█N,     ╓▌   "▀▀▀▀╕`^        ▄╢▓▓▀   ,▄█▌               `▓█,       
+             is closest to your mouseposition.          █▌ `N.  ╓▀╙N▄,   ╙╦,U        ███▀ ▄▄▀   ██@               ╙▓█       
+           - If Skewer is toggled to true, then it      ▌   `W~█,   ╙▀Φ▄,  ▀▄         ,█` ▀    ███              ,=▓▓█      
+             will also Skewer them back to the blink     ▀,   █▄  "5╖  `╜▀╖j `-   ╘▄▄██▌   ì  Æ ██▒        ,ç▄▓██▀▀▀█▌     
+             position after casting RP.                      ▀Ä█╖"─    =,  ▐▌     , ██`  L  ▐█'  ▓]▓        j▓█       '     
+                                                                  ▀Ä, ,  `░``▀     ██    ▐,F  ▄,╓   ▒   ç@▄@▄▓▓▓            
+    SmartRP - Just like the regular AutoRP however this            '╩▄$▄`   └   ▄  \  ,▀▀,  ▐█    ║, ╟▓▀    ▀▀            
+              actually casts to the centre of the enemies.               ▀▄      ▄  ,√▀L   ▐ ,╣`     ▓g▓▌                   
+                                      (Credits to Nova)                    '╣  ▄█]╥╬▄, ▐▄▄▄@▀`     ╓' ▀█                    
+            - Can set a minimum number on enemies you want to catch.         ▄╓▀ [               ,▀    `                    
+                                                                                 [          ,,▄Ñ▀                           
+    AutoSkewer, AutoRP and SmartRP require a Blink Dagger.                       ╘[╣   x╩▀`                                 
+    The AutoRP combo's also make use of Refresher and Black King Bar.            ╚ ▌   
+                                                                                    
+                                                                                    
+---------------------------------------------------------------------------------------------------------------------------------------------
       Changelog:- 
          -----Beta phase-----
             V0.1 Release was made, if there any bugs or suggestions, please notify me of them.
@@ -18,26 +49,8 @@
             V1.1 A complete rework of AutoSkewer. Now it stops if opponent will dodge you. PLUS, the skewer is much more accurate right now.
                      Also there were some changes with backswing animations. The refresher combo is x2 faster than it was before. 
             
-            
-            
-            
-            
-                                                                                       ,'   `---.___.---'  `.
-                                                                                   ,'   ,-                 `-._
-                                                                                   ,'    /                       \
-                                                                                ,\/     /                        \\
-                                                                            )`._)>)     |                         \\
-                                                                          `>,'    _   \                  /       ||
-                                                                              )      \   |   |            |        |\\
-                                                                     .   ,   /        \  |    `.          |        | ))
-                                                                     \`. \`-'          )-|      `.        |        /((
-                                                                      \ `-`   .`     _/  \ _     )`-.___.--\      /  `'
-                                                                       `._         ,'     `j`.__/           `.    \
-                                                                         / ,    ,'         \   /`             \   /
-                                                                         \__   /           _) (               _) (
-                                                                           `--'           /____\             /____\
-                                                   
-  P.S  Don't fuck with rhyno ]]
+                          
+  P.S  Don't fuck with Rhino ]]
 
 require("libs.Utils")
 require("libs.ScriptConfig")
@@ -108,6 +121,8 @@ function Key(msg,code)
 
   if IsKeyDown(string.byte("S")) then
     penis = false
+    active = false
+    vagina = false
   end
 
   if IsKeyDown(toggleskewer) then
@@ -171,6 +186,8 @@ function Main(tick)
       else
         active = false
       end
+    elseif not skewer:CanBeCasted() then
+      active = false
     end
   end
 
