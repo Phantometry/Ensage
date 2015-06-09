@@ -1,4 +1,4 @@
---<<Darkness timer>>--
+--<<The best possible timings for Night Stalker ultimate!>>--
 
 require("libs.SideMessage")
 require("libs.Utils")
