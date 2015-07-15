@@ -1,9 +1,6 @@
 --<<Auto_Feed by Phantometry>>--
 require("libs.Utils")
-require("libs.ScriptConfig")
 
-
-local active = false
 local registered = false
 local Move = false
 local MovePosition = nil
