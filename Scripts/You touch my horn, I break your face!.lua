@@ -51,7 +51,7 @@
          -----Release of version 1.2-----
             V1.2 Some small fixes and additions were made. Now magnus move before an actual RP cast so it's even more faster and doesn't require him to waste like 1-2 seconds. 
                      In addition, some changes were made with sleepchecks so both manual and custom RP are more faster than before.
-            
+                        On top of that I need to say that magnus can move slightly off target after blinking in. I recommend you to try to face your enemy in order to perform the best 180 degrees turn.
                           
   P.S  Don't fuck with Rhino ]]
 
@@ -255,8 +255,10 @@ function Main(tick)
       end
 	  if GetDistance2D(daggerposition,target.position) > GetDistance2D(daggerposition, me.position) then
 	    me:Move((target.position - daggerposition) * (100 + GetDistance2D(daggerposition,target))/ GetDistance2D(daggerposition,target) + daggerposition)
+		if shoqwave:CanBeCasted() then
 		me:CastAbility(shoqwave,target.position, true)
-		elseif me:CanCast() then
+		end
+		elseif me:CanCast() and shoqwave:CanBeCasted() then
 			me:CastAbility(shoqwave,target.position) 
 			end
       step = 2
