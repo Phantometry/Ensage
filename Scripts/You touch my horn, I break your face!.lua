@@ -1,5 +1,5 @@
 --<<You touch my horn, I break your face! A script by Phantometry V1.2>>
---[[    
+--[[
                                                                ▄                                                            
                                                             ╓█▀                                                             
   /\/\   __ _  __ _ _ __  _   _ ___                       ▄▓█▀                                                              
@@ -121,8 +121,8 @@ function Key(msg,code)
   if client.chat or client.console or client.loading then return end
   local me = entityList:GetMyHero()
   local dagger = me:FindItem("item_blink")
- 
-  
+
+
   if code == autoskewer then
     active = true
   end
@@ -223,30 +223,30 @@ function Main(tick)
 
   if target and dagger and penis then
     if rp and rp:CanBeCasted() and step == 0 then
-	  if jesuschrist == 0 then
-		daggerposition = me.position
-	  end
+      if jesuschrist == 0 then
+        daggerposition = me.position
+      end
       if not automatic and me:GetDistance2D(target) < 1200 then
         me:CastAbility(dagger,target.position)
-		me:Move(daggerposition, true)
+        me:Move(daggerposition, true)
       elseif
         automatic and center and me:GetDistance2D(center) < 1200 then
         me:CastAbility(dagger,center)
-		me:Move(daggerposition, true)
+        me:Move(daggerposition, true)
         automatic = false
       else
         step = 0
         penis = false
         return
       end
-	  if jesuschrist == 0 then 
-		jesuschrist = 1
-	    Sleep(140)
-		return
-		end
+      if jesuschrist == 0 then
+        jesuschrist = 1
+        Sleep(140)
+        return
+      end
       me:CastAbility(rp)
       step = 1
-	  jesuschrist = 0
+      jesuschrist = 0
       Sleep(100,"stun_delay")
       Sleep(800)
       return
@@ -254,14 +254,14 @@ function Main(tick)
       if bkb then
         me:CastAbility(bkb)
       end
-	  if GetDistance2D(daggerposition,target.position) > GetDistance2D(daggerposition, me.position) then
-	    me:Move((target.position - daggerposition) * (100 + GetDistance2D(daggerposition,target))/ GetDistance2D(daggerposition,target) + daggerposition)
-		if shoqwave:CanBeCasted() then
-		me:CastAbility(shoqwave,target.position, true)
-		end
-		elseif me:CanCast() and shoqwave:CanBeCasted() then
-			me:CastAbility(shoqwave,target.position) 
-			end
+      if GetDistance2D(daggerposition,target.position) > GetDistance2D(daggerposition, me.position) then
+        me:Move((target.position - daggerposition) * (100 + GetDistance2D(daggerposition,target))/ GetDistance2D(daggerposition,target) + daggerposition)
+        if shoqwave:CanBeCasted() then
+          me:CastAbility(shoqwave,target.position, true)
+        end
+      elseif me:CanCast() and shoqwave:CanBeCasted() then
+        me:CastAbility(shoqwave,target.position)
+      end
       step = 2
 
     elseif skewer and skewer:CanBeCasted() and step == 2 and SleepCheck("stun_delay") then
