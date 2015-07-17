@@ -82,6 +82,7 @@ local penis = false
 local vagina = false
 local automatic = false
 local Distance = {}
+local jesuschrist = 0
 
 local x,y = 5, 55
 local monitor = client.screenSize.x/1600
@@ -114,7 +115,10 @@ end
 
 function Key(msg,code)
   if client.chat or client.console or client.loading then return end
-
+  local me = entityList:GetMyHero()
+  local dagger = me:FindItem("item_blink")
+ 
+  
   if code == autoskewer then
     active = true
   end
@@ -136,7 +140,7 @@ function Key(msg,code)
     end
   end
 
-  if code == autorp then
+  if dagger and code == autorp then
     penis = true
   end
 
@@ -177,7 +181,7 @@ function Main(tick)
         end
       end
     end
-    if SleepCheck("something") and dagger.cd > 0 and skewer:CanBeCasted() and not SleepCheck("penischeck") and GetDistance2D(me,target) > 125 then
+    if SleepCheck("something") and dagger and dagger.cd > 0 and skewer:CanBeCasted() and not SleepCheck("penischeck") and GetDistance2D(me,target) > 125 then
       angle = me:FindRelativeAngle(target)
       if angle > 1.2 or angle < -1.3 then
         me:Stop()
@@ -186,7 +190,7 @@ function Main(tick)
       else
         active = false
       end
-    elseif not skewer:CanBeCasted() then
+    elseif not skewer:CanBeCasted() or not dagger then
       active = false
     end
   end
@@ -213,31 +217,45 @@ function Main(tick)
   end
 
 
-  if target and penis then
+  if target and dagger and penis then
     if rp and rp:CanBeCasted() and step == 0 then
-      daggerposition = me.position
+	  if jesuschrist == 0 then
+		daggerposition = me.position
+	  end
       if not automatic and me:GetDistance2D(target) < 1200 then
         me:CastAbility(dagger,target.position)
+		me:Move(daggerposition, true)
       elseif
         automatic and center and me:GetDistance2D(center) < 1200 then
         me:CastAbility(dagger,center)
+		me:Move(daggerposition, true)
         automatic = false
       else
         step = 0
         penis = false
         return
       end
+	  if jesuschrist == 0 then 
+		jesuschrist = 1
+	    Sleep(140)
+		return
+		end
       me:CastAbility(rp)
       step = 1
-      Sleep(3000,"stun_delay")
+	  jesuschrist = 0
+      Sleep(100,"stun_delay")
       Sleep(800)
       return
     elseif step == 1 then
       if bkb then
         me:CastAbility(bkb)
       end
-      me:Move((target.position - daggerposition) * (100 + GetDistance2D(daggerposition,target))/ GetDistance2D(daggerposition,target) + daggerposition)
-      me:CastAbility(shoqwave,target.position, true)
+	  if GetDistance2D(daggerposition,target.position) > GetDistance2D(daggerposition, me.position) then
+	    me:Move((target.position - daggerposition) * (100 + GetDistance2D(daggerposition,target))/ GetDistance2D(daggerposition,target) + daggerposition)
+		me:CastAbility(shoqwave,target.position, true)
+		elseif me:CanCast() then
+			me:CastAbility(shoqwave,target.position) 
+			end
       step = 2
 
     elseif skewer and skewer:CanBeCasted() and step == 2 and SleepCheck("stun_delay") then
@@ -246,7 +264,7 @@ function Main(tick)
       end
       if refresher then
         step = 3
-        Sleep(800,"refreshercheck")
+        Sleep(3000,"refreshercheck")
         return
       else
         step = 0
