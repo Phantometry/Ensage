@@ -49,7 +49,7 @@
             V1.1 A complete rework of AutoSkewer. Now it stops if opponent will dodge you. PLUS, the skewer is much more accurate right now.
                      Also there were some changes with backswing animations. The refresher combo is x2 faster than it was before. 
          -----Release of version 1.2-----
-            V1.2 Some small fixes and additions were made. Now magnus move before an actual RP cast so it's even more faster and doesn't require him to waste like 1-2 seconds. 
+            V1.2 Some small fixes and additions were made. Now magnus move before an actual RP cast so it's even more faster and doesn't require him to waste around 1-2 seconds. 
                      In addition, some changes were made with sleepchecks so both manual and custom RP are more faster than before.
                         On top of that I need to say that magnus can move slightly off target after blinking in. I recommend you to try to face your enemy in order to perform the best 180 degrees turn.
                           
