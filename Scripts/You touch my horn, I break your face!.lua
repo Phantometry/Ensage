@@ -247,7 +247,7 @@ function Main(tick)
       me:CastAbility(rp)
       step = 1
       jesuschrist = 0
-      Sleep(100,"stun_delay")
+      Sleep(500,"stun_delay")
       Sleep(800)
       return
     elseif step == 1 then
