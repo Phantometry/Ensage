@@ -48,6 +48,9 @@
          -----Release of version 1.1-----
             V1.1 A complete rework of AutoSkewer. Now it stops if opponent will dodge you. PLUS, the skewer is much more accurate right now.
                      Also there were some changes with backswing animations. The refresher combo is x2 faster than it was before. 
+         -----Release of version 1.2-----
+            V1.2 Some small fixes and additions were made. Now magnus move before an actual RP cast so it's even more faster and doesn't require him to waste like 1-2 seconds. 
+                     In addition, some changes were made with sleepchecks so both manual and custom RP are more faster than before.
             
                           
   P.S  Don't fuck with Rhino ]]
