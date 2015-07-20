@@ -53,7 +53,8 @@
                      In addition, some changes were made with sleepchecks so both manual and custom RP are more faster than before.
                         On top of that I need to say that magnus can move slightly off target after blinking in. I recommend you to try to face your enemy in order to perform the best 180 degrees turn.
                            I'd also recommend you to disable an auto attack after casting a spell option. It will make autoskewer even more accurate.
-                          
+            V1.2(a) Toggle 100% RP option was added.
+                                                                  
   P.S  Don't fuck with Rhino ]]
 
 require("libs.Utils")
@@ -69,6 +70,7 @@ config:SetParameter("autoshoqwave","F",config.TYPE_HOTKEY)
 config:SetParameter("autoskewer", "T", config.TYPE_HOTKEY)
 config:SetParameter("customrp", "32", config.TYPE_HOTKEY)
 config:SetParameter("toggleskewer", "G", config.TYPE_HOTKEY)
+config:SetParameter("togglerp", "K", config.TYPE_HOTKEY)
 config:SetParameter("customrptreshold", 3, config.TYPE_NUMBER)
 config:Load()
 
@@ -79,6 +81,8 @@ local customrp = config.customrp
 local treshold = config.customrptreshold
 local toggleskewer = config.toggleskewer
 local autoskewer1 = false
+local togglerp = config.togglerp
+local togglerp1 = false
 local step = 0
 local center = 0
 local active = false
@@ -98,10 +102,12 @@ local statusText = drawMgr:CreateText(x*monitor,y*monitor,0x9CB7F7CC,"You touch 
 local statusText2 = drawMgr:CreateText(x*monitor,(y+20)*monitor,0x3AE871A6,"For a manual rp-combo press "..string.char(autorp),Font1) statusText2.visible = false
 local statusText3 = drawMgr:CreateText(x*monitor,(y+35)*monitor,0x3AE871A6,"To toggle skewer press "..string.char(toggleskewer),Font1) statusText3.visible = false
 local statusText4 = drawMgr:CreateText(x*monitor,(y+50)*monitor,0x3AE871A6,"For an auto skewer press "..string.char(autoskewer),Font1) statusText4.visible = false
-local statusText5 = drawMgr:CreateText(x*monitor,(y+65)*monitor,0x3AE871A6,"For smart rp press Space",Font1) statusText5.visible = false
+local statusText5 = drawMgr:CreateText(x*monitor,(y+65)*monitor,0x3AE871A6,"For smart rp hold Space",Font1) statusText5.visible = false
 local statusText6 = drawMgr:CreateText(x*monitor,(y+80)*monitor,0x3AE871A6,"For an auto shockwave press "..string.char(autoshoqwave),Font1) statusText6.visible = false
 local statusText7 = drawMgr:CreateText((x+1420)*monitor,(y)*monitor,0xF24949B3,"SkewerToggle: Off ",Font1) statusText7.visible = false
-local statusText8 = drawMgr:CreateText(x*monitor,(y+95)*monitor,0x90FF4F73,"",Font1) statusText8.visible = false
+local statusText8 = drawMgr:CreateText(x*monitor,(y+110)*monitor,0x90FF4F73,"",Font1) statusText8.visible = false
+local statusText9 = drawMgr:CreateText((x+1420)*monitor,(y+25)*monitor,0xF24949B3,"100% RP: Off ",Font1) statusText9.visible = false
+local statusText10 = drawMgr:CreateText(x*monitor,(y+95)*monitor,0x3AE871A6,"For an 100% RP toggle press "..string.char(togglerp),Font1) statusText10.visible = false
 
 function onLoad()
   if PlayingGame() then
@@ -141,6 +147,17 @@ function Key(msg,code)
     else
       statusText7.text = "SkewerToggle: Off"
       statusText7.color = 0xF24949B3
+    end
+  end
+  
+    if IsKeyDown(togglerp) then
+    togglerp1 = not togglerp1
+    if togglerp1 == true then
+      statusText9.text = "100% RP: On"
+      statusText9.color = 0x07E020B3
+    else
+      statusText9.text = "100% RP: Off"
+      statusText9.color = 0xF24949B3
     end
   end
 
@@ -295,7 +312,7 @@ function Main(tick)
   end
 
 
-  if rp and rp.abilityPhase then
+  if rp and togglerp1 and rp.abilityPhase then
     local enemies = entityList:GetEntities(function(v) return v.type == LuaEntity.TYPE_HERO and v.team == me:GetEnemyTeam() and v.visible and not v.illusion and v.alive and v:GetDistance2D(me) < 380  end)
     if #enemies == 0 then
       me:Stop()
@@ -315,6 +332,9 @@ function Main(tick)
     statusText6.visible = true
     statusText7.visible = true
     statusText8.visible = true
+    statusText9.visible = true
+    statusText10.visible = true
+    
     timeremain = math.ceil(30 - client.gameTime)
     statusText8.text = "These messages will disappear in " .. (timeremain) .. " seconds"
     if timeremain < 1 then
@@ -328,6 +348,7 @@ function Main(tick)
     statusText5.visible = false
     statusText6.visible = false
     statusText8.visible = false
+    statusText10.visible = false
     ignore = true
   end
 
