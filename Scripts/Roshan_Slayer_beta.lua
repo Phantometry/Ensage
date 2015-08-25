@@ -118,5 +118,5 @@ function Close()
   end
 end
 
-script:RegisterEvent(EVENT_CLOSE,onClose)
+script:RegisterEvent(EVENT_CLOSE,Close)
 script:RegisterEvent(EVENT_TICK,Load)
