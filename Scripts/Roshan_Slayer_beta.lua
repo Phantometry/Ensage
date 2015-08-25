@@ -83,7 +83,7 @@ function Main(tick)
       Sleep(3000) return
     end
 
-    if Step == 1 and roshan and me:GetDistance2D(roshan) > 343 then
+    if Step == 1 and roshan and me:GetDistance2D(roshan) > 365 then
       me:AttackMove(Vector(4282,-1816,100))
       Step = 2
       Sleep(1700)
