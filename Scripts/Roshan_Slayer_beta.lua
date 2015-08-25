@@ -1,4 +1,4 @@
---<<Roshan Slayer beta>>--
+--<<Roshan Slayer, beta>>--
 
 require("libs.Utils")
 require("libs.ScriptConfig")
