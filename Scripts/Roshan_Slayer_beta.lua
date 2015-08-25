@@ -19,7 +19,7 @@ local ScreenX = client.screenSize.x
 local ScreenY = client.screenSize.y
 local Font = drawMgr:CreateFont("Font","Tahoma",0.02071875*ScreenY,0.4375*ScreenX)
 local Font1 = drawMgr:CreateFont("Font","Tahoma",0.01671875*ScreenY,0.4375*ScreenX)
-local statusText = drawMgr:CreateText((x+1320)*monitor,(y+25)*monitor,0x39B8E3B3,"Roshan slayer is on the way!",Font1) statusText.visible = true
+local statusText = drawMgr:CreateText((x+1320)*monitor,(y+25)*monitor,0x39B8E3B3,"Roshan slayer is on his way!",Font1) statusText.visible = true
 
 function Load()
   local me = entityList:GetMyHero()
@@ -45,7 +45,7 @@ function Key()
   if IsKeyDown(ursamove) then
     ursamove1 = not ursamove1
     if ursamove1 == true then
-      statusText.text = "Roshan slayer is on the way!"
+      statusText.text = "Roshan slayer is on his way!"
       statusText.color = 0x39B8E3B3
     else
       statusText.text = "Fuck this shit I'm not doing it!"
