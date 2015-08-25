@@ -90,7 +90,7 @@ function Main(tick)
     elseif Step == 2 then
       me:Move(Vector(3478,-1969,100))
       Step = 3
-    elseif Step == 3 and roshan and me:GetDistance2D(roshan) < 299 and me:GetDistance2D(Vector(3478,-1969,100)) < 2 then
+    elseif Step == 3 and roshan and me:GetDistance2D(roshan) < 305 and me:GetDistance2D(Vector(3478,-1969,100)) < 2 then
       me:Attack(Ward[1])
       me:Stop()
       Step = 1
