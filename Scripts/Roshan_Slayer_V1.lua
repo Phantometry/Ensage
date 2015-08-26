@@ -78,6 +78,7 @@ function Key()
       statusText.text = "Roshan Slayer is on his way!"
       statusText.color = 0x39B8E3B3
     else
+      Step = 1337
       statusText.text = "Fuck this shit I'm not doing it!"
       statusText.color = 0xF2754BB3
     end
