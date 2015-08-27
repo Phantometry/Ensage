@@ -1,4 +1,4 @@
---<<Roshan Slayer V 1.0>>--
+--<<Roshan Slayer script by Phantometry V1.1>>--
 --[[   
                                                                       
                                 ██╗   ██╗██████╗ ███████╗ █████╗ 
@@ -95,7 +95,7 @@ function Main(tick)
     local mp = entityList:GetMyPlayer()
     local roshan = entityList:GetEntities({classId = CDOTA_Unit_Roshan}) [1]
 
-    if Step == 0 then
+    if Step == 0 and me:DoesHaveModifier("modifier_fountain_aura_buff") then
       if not penis then
         mp:BuyItem(29)
         mp:BuyItem(46)
@@ -112,11 +112,17 @@ function Main(tick)
       me:AttackMove(Vector(4282,-1816,100))
       Step = 2
       Sleep(2700)
+	elseif Step == 0 then 
+	 Step = 1337
     end
 
     if Step == 1 and roshan and me:GetDistance2D(roshan) > (380 - client.latency/5.5) then
-      me:AttackMove(Vector(4282,-1816,100))
-      Step = 2
+      me:Move(Vector(4282,-1816,100))
+      Step = 2.5
+	  Sleep(500)
+	  elseif Step == 2.5 then 
+	  me:AttackMove(Vector(4282,-1816,100))
+	  Step = 2
     elseif Step == 2 and Animations.CanMove(me) then
       me:Move(Vector(3478,-1969,100))
       Step = 3
@@ -125,7 +131,6 @@ function Main(tick)
       me:Stop()
       Step = 1
     end
-    print(client.latency)
   end
 end
 
