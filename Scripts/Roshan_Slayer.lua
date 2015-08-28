@@ -1,4 +1,4 @@
---<<Roshan Slayer script by Phantometry V1.1>>--
+--<<Roshan Slayer script by Phantometry version 1.1>>--
 --[[   
                                                                       
                                 ██╗   ██╗██████╗ ███████╗ █████╗ 
