@@ -48,8 +48,8 @@ local ScreenX = client.screenSize.x
 local ScreenY = client.screenSize.y
 local Font1 = drawMgr:CreateFont("Font","Tahoma",0.01671875*ScreenY,0.4375*ScreenX)
 local statusText = drawMgr:CreateText((x+1320)*monitor,(y+25)*monitor,0x39B8E3B3,"Roshan Slayer is on his way!",Font1) statusText.visible = false
-local statusText1 = drawMgr:CreateText((x+1410)*monitor,(y+605)*monitor,0xD0FFA3A1,"Script version - 1.1",Font1) statusText1.visible = false
-local statusText2 = drawMgr:CreateText((x+1420)*monitor,(y+620)*monitor,0xD0FFA3A1,"Coded by - Phantometry",Font1) statusText2.visible = false
+local statusText1 = drawMgr:CreateText((x+1410)*monitor,(y+605)*monitor,0xFFFFFCC,"Script version - 1.1",Font1) statusText1.visible = false
+local statusText2 = drawMgr:CreateText((x+1420)*monitor,(y+620)*monitor,0xFFFFFCC,"Coded by - Phantometry",Font1) statusText2.visible = false
 
 function Load()
   local me = entityList:GetMyHero()
